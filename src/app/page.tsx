@@ -1,6 +1,21 @@
 'use client'
 
-import { Container, Text, useToast, Button, Tooltip } from '@chakra-ui/react'
+import { 
+  Container, 
+  Text, 
+  useToast, 
+  Button, 
+  Tooltip, 
+  VStack, 
+  Box,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderMark,
+  Heading,
+  Flex
+} from '@chakra-ui/react'
 import { useAppKitAccount, useAppKitNetwork, useAppKitProvider } from '@reown/appkit/react'
 import { BrowserProvider, parseEther, formatEther } from 'ethers'
 import { useState, useEffect } from 'react'
@@ -12,117 +27,114 @@ export default function Home() {
   const [txLink, setTxLink] = useState<string>()
   const [txHash, setTxHash] = useState<string>()
   const [balance, setBalance] = useState<string>('0')
+  const [selectedAmount, setSelectedAmount] = useState<number>(42) // Default to 42 euros
 
   const { address, isConnected } = useAppKitAccount()
   const { walletProvider } = useAppKitProvider('eip155')
   const toast = useToast()
   const t = useTranslation()
 
-  useEffect(() => {
-    const checkBalance = async () => {
-      if (address && walletProvider) {
-        try {
-          const provider = new BrowserProvider(walletProvider as any)
-          const balance = await provider.getBalance(address)
-          setBalance(formatEther(balance))
-        } catch (error) {
-          console.error('Error fetching balance:', error)
-        }
-      }
-    }
-
-    checkBalance()
-  }, [address, walletProvider])
-
-  const handleSend = async () => {
-    setTxHash('')
-    setTxLink('')
-    if (!address || !walletProvider) {
-      toast({
-        title: t.common.error,
-        description: t.home.notConnected,
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-      return
-    }
-
-    setIsLoading(true)
-    try {
-      const provider = new BrowserProvider(walletProvider as any)
-      const signer = await provider.getSigner()
-
-      const tx = await signer.sendTransaction({
-        to: address,
-        value: parseEther('0.0001'),
-      })
-
-      const receipt = await tx.wait(1)
-
-      setTxHash(receipt?.hash)
-      setTxLink('https://sepolia.etherscan.io/tx/' + receipt?.hash)
-
-      toast({
-        title: t.common.success,
-        description: `${t.home.transactionSuccess}: 0.0001 ETH to ${address}`,
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      })
-    } catch (error) {
-      console.error('Transaction failed:', error)
-      toast({
-        title: t.home.transactionFailed,
-        description: error instanceof Error ? error.message : 'Unknown error occurred',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-    } finally {
-      setIsLoading(false)
-    }
+  const handleStart = () => {
+    console.log(`Starting DCA with ${selectedAmount} euros`)
+    toast({
+      title: 'DCA Started',
+      description: `Starting Dollar Cost Averaging with €${selectedAmount} per month`,
+      status: 'info',
+      duration: 5000,
+      isClosable: true,
+    })
   }
 
-  const hasEnoughBalance = Number(balance) >= 0.0001
+  // Slider marks for visual reference
+  const labelStyles = {
+    mt: '2',
+    ml: '-2.5',
+    fontSize: 'sm',
+    color: 'gray.400',
+  }
 
   return (
     <Container maxW="container.sm" py={20}>
-      <Text mb={4}>{t.home.title}</Text>
-      {isConnected && (
-        <Tooltip
-          label={!hasEnoughBalance ? t.home.insufficientBalance : ''}
-          isDisabled={hasEnoughBalance}
-          hasArrow
-          bg="black"
-          color="white"
-          borderWidth="1px"
-          borderColor="red.500"
-          borderRadius="md"
-          p={2}
-        >
+      <VStack spacing={12} align="stretch">
+        <Box textAlign="center">
+          <Box mb={12} px={4}>
+            <Text mb={20} fontSize="lg" color="gray.300">
+              Select your monthly investment amount
+            </Text>
+            
+            <Box px={4} mb={20}>
+              <Slider
+                aria-label="investment-amount"
+                min={20}
+                max={100}
+                step={1}
+                value={selectedAmount}
+                onChange={(val) => setSelectedAmount(val)}
+                colorScheme="blue"
+              >
+                <SliderMark value={20} {...labelStyles}>
+                  €20
+                </SliderMark>
+                <SliderMark value={50} {...labelStyles}>
+                  €50
+                </SliderMark>
+                <SliderMark value={100} {...labelStyles}>
+                  €100
+                </SliderMark>
+                <SliderMark
+                  value={selectedAmount}
+                  textAlign="center"
+                  bg="blue.500"
+                  color="white"
+                  mt="-10"
+                  ml="-5"
+                  w="12"
+                  px={2}
+                  py={1}
+                  borderRadius="md"
+                  fontSize="sm"
+                >
+                  €{selectedAmount}
+                </SliderMark>
+                <SliderTrack>
+                  <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb boxSize={6}>
+                  <Box color="blue.500" />
+                </SliderThumb>
+              </Slider>
+            </Box>
+          </Box>
+
           <Button
-            onClick={handleSend}
-            isLoading={isLoading}
-            loadingText={t.common.loading}
+            onClick={handleStart}
+            size="lg"
             bg="#45a2f8"
             color="white"
             _hover={{
               bg: '#3182ce',
             }}
-            isDisabled={!hasEnoughBalance}
+            px={12}
+            py={6}
+            fontSize="lg"
+            fontWeight="bold"
+            borderRadius="lg"
           >
-            {t.home.sendEth}
+            Start DCA with €{selectedAmount}/month
           </Button>
-        </Tooltip>
-      )}
-      {txHash && isConnected && (
-        <Text py={4} fontSize="14px" color="#45a2f8">
-          <Link target="_blank" rel="noopener noreferrer" href={txLink ? txLink : ''}>
-            {txHash}
-          </Link>
-        </Text>
-      )}
+        </Box>
+
+          {isConnected && (
+          <Box>
+            <Text mb={4} color="gray.400">
+              You wallet address: 
+            </Text>
+            <Text mb={4} color="#8c1c84">
+              <strong>{address}</strong>
+            </Text>
+          </Box>
+        )}
+      </VStack>
     </Container>
   )
 }
