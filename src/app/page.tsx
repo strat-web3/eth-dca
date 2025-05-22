@@ -14,13 +14,15 @@ import {
   SliderThumb,
   SliderMark,
   Heading,
-  Flex
+  Flex,
+  Link
 } from '@chakra-ui/react'
 import { useAppKitAccount, useAppKitNetwork, useAppKitProvider } from '@reown/appkit/react'
 import { BrowserProvider, parseEther, formatEther } from 'ethers'
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useTranslation } from '@/hooks/useTranslation'
+import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
@@ -124,14 +126,32 @@ export default function Home() {
           </Button>
         </Box>
 
-          {isConnected && (
+        {isConnected && (
           <Box>
             <Text mb={4} color="gray.400">
-              You wallet address: 
+              Your wallet address: 
             </Text>
-            <Text mb={4} color="#8c1c84">
-              <strong>{address}</strong>
-            </Text>
+            <Link
+              href={`https://optimistic.etherscan.io/address/${address}`}
+              isExternal
+              color="#8c1c84"
+              fontWeight="bold"
+              _hover={{
+                color: '#6d1566',
+                textDecoration: 'underline'
+              }}
+              display="inline-flex"
+              alignItems="center"
+              gap={1}
+              wordBreak="break-all"
+              flexWrap="wrap"
+              fontSize={{ base: "sm", md: "md" }}
+            >
+              <Text as="span" wordBreak="break-all">
+                {address}
+              </Text>
+              <ExternalLinkIcon mx="2px" flexShrink={0} />
+            </Link>
           </Box>
         )}
       </VStack>
