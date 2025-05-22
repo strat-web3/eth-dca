@@ -1,46 +1,37 @@
 'use client'
 
-import { 
-  Container, 
-  Text, 
-  useToast, 
-  Button, 
-  Tooltip, 
-  VStack, 
+import {
+  Container,
+  Text,
+  useToast,
+  Button,
+  VStack,
   Box,
   Slider,
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
   SliderMark,
-  Heading,
-  Flex,
-  Link
+  Link,
 } from '@chakra-ui/react'
-import { useAppKitAccount, useAppKitNetwork, useAppKitProvider } from '@reown/appkit/react'
-import { BrowserProvider, parseEther, formatEther } from 'ethers'
-import { useState, useEffect } from 'react'
-import NextLink from 'next/link'
+import { useAppKitAccount } from '@reown/appkit/react'
+import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { formatTranslation } from '@/translations'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [txLink, setTxLink] = useState<string>()
-  const [txHash, setTxHash] = useState<string>()
-  const [balance, setBalance] = useState<string>('0')
   const [selectedAmount, setSelectedAmount] = useState<number>(42) // Default to 42 euros
 
   const { address, isConnected } = useAppKitAccount()
-  const { walletProvider } = useAppKitProvider('eip155')
   const toast = useToast()
   const t = useTranslation()
 
   const handleStart = () => {
     console.log(`Starting DCA with ${selectedAmount} euros`)
     toast({
-      title: 'DCA Started',
-      description: `Starting Dollar Cost Averaging with €${selectedAmount} per month`,
+      title: t.home.dcaStarted,
+      description: formatTranslation(t.home.dcaStartedDescription, { amount: selectedAmount }),
       status: 'info',
       duration: 5000,
       isClosable: true,
@@ -61,9 +52,9 @@ export default function Home() {
         <Box textAlign="center">
           <Box mb={12} px={4}>
             <Text mb={20} fontSize="lg" color="gray.300">
-              Select your monthly investment amount
+              {t.home.selectAmount}
             </Text>
-            
+
             <Box px={4} mb={20}>
               <Slider
                 aria-label="investment-amount"
@@ -71,7 +62,7 @@ export default function Home() {
                 max={100}
                 step={1}
                 value={selectedAmount}
-                onChange={(val) => setSelectedAmount(val)}
+                onChange={val => setSelectedAmount(val)}
                 colorScheme="blue"
               >
                 <SliderMark value={20} {...labelStyles}>
@@ -122,14 +113,14 @@ export default function Home() {
             fontWeight="bold"
             borderRadius="lg"
           >
-            Start DCA with €{selectedAmount}/month
+            {formatTranslation(t.home.startDca, { amount: selectedAmount })}
           </Button>
         </Box>
 
         {isConnected && (
           <Box>
             <Text mb={4} color="gray.400">
-              Your wallet address: 
+              {t.home.walletAddress}
             </Text>
             <Link
               href={`https://optimistic.etherscan.io/address/${address}`}
@@ -138,14 +129,14 @@ export default function Home() {
               fontWeight="bold"
               _hover={{
                 color: '#6d1566',
-                textDecoration: 'underline'
+                textDecoration: 'underline',
               }}
               display="inline-flex"
               alignItems="center"
               gap={1}
               wordBreak="break-all"
               flexWrap="wrap"
-              fontSize={{ base: "sm", md: "md" }}
+              fontSize={{ base: 'sm', md: 'md' }}
             >
               <Text as="span" wordBreak="break-all">
                 {address}

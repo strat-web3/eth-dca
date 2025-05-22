@@ -17,32 +17,17 @@ type TranslationKeys = {
   }
   home: {
     title: string
+    subtitle: string
+    selectAmount: string
+    startDca: string
+    walletAddress: string
+    dcaStarted: string
+    dcaStartedDescription: string
     sendEth: string
     transactionSuccess: string
     transactionFailed: string
     notConnected: string
     insufficientBalance: string
-  }
-  wallet: {
-    title: string
-    description: string
-    noWalletFound: string
-    createWallet: string
-    regenerateWallet: string
-    flushDb: string
-    yourAddress: string
-    messageToSign: string
-    enterMessage: string
-    signMessage: string
-    signature: string
-    verifySignature: string
-    verificationSuccess: string
-    verificationFailed: string
-  }
-  navigation: {
-    newPage: string
-    walletGenerator: string
-    referral: string
   }
   newPage: {
     title: string
@@ -54,14 +39,16 @@ type TranslationKeys = {
     lastTransaction: string
     backHome: string
   }
+  wallet: {
+    title: string
+    description: string
+    noWalletFound: string
+    createWallet: string
+  }
 }
 
-// Define translations for each supported language
-type Translations = {
-  [key in Language]: TranslationKeys
-}
-
-export const translations: Translations = {
+// Translation objects for each supported language
+const translations: Record<Language, TranslationKeys> = {
   // English
   en: {
     common: {
@@ -73,47 +60,38 @@ export const translations: Translations = {
       success: 'Success',
     },
     home: {
-      title: 'Hello ETH!',
-      sendEth: 'Send 0.0001 ETH to self',
-      transactionSuccess: 'Transaction successful',
+      title: 'ETH DCA',
+      subtitle: 'Buy a handful of ETH each month',
+      selectAmount: 'Select your monthly investment amount',
+      startDca: 'Start DCA with €{amount}/month',
+      walletAddress: 'Your wallet address:',
+      dcaStarted: 'DCA Started',
+      dcaStartedDescription: 'Starting Dollar Cost Averaging with €{amount} per month',
+      sendEth: 'Send ETH',
+      transactionSuccess: 'Transaction successful!',
       transactionFailed: 'Transaction failed',
       notConnected: 'Please connect your wallet',
-      insufficientBalance: 'Please connect with an account that has a bit of ETH',
-    },
-    wallet: {
-      title: 'Welcome to Message Signer',
-      description: 'Securely sign and verify Ethereum messages with your wallet',
-      noWalletFound: 'No Ethereum Wallet Found',
-      createWallet: 'Create New Ethereum Wallet',
-      regenerateWallet: 'Generate New Wallet',
-      flushDb: 'Flush DB',
-      yourAddress: 'Your Ethereum Wallet Address',
-      messageToSign: 'Message to Sign',
-      enterMessage: 'Enter your message...',
-      signMessage: 'Sign Message',
-      signature: 'Ethereum Signature',
-      verifySignature: 'Verify Signature',
-      verificationSuccess: 'Signature is valid and matches the current wallet address',
-      verificationFailed: 'Signature does not match the current wallet address',
-    },
-    navigation: {
-      newPage: 'New page',
-      walletGenerator: 'Wallet generator',
-      referral: 'Referral',
+      insufficientBalance: 'Insufficient balance',
     },
     newPage: {
-      title: 'Welcome to New Page',
-      subtitle: 'Unleash your imagination in this new page!',
+      title: 'Dashboard',
+      subtitle: 'Monitor your DCA strategy',
       accountInfo: 'Account Information',
-      connectedAddress: 'Connected Address:',
+      connectedAddress: 'Connected address:',
       balance: 'Balance:',
-      connectWallet: 'Connect your wallet to get started',
-      lastTransaction: 'Last Transaction:',
-      backHome: 'Back Home',
+      connectWallet: 'Please connect your wallet to view your dashboard',
+      lastTransaction: 'Last transaction:',
+      backHome: 'Back to Home',
+    },
+    wallet: {
+      title: 'Wallet',
+      description: 'Connect your wallet to start investing',
+      noWalletFound: 'No wallet found',
+      createWallet: 'Create wallet',
     },
   },
 
-  // Mandarin Chinese
+  // Chinese (Simplified)
   zh: {
     common: {
       login: '登录',
@@ -124,43 +102,34 @@ export const translations: Translations = {
       success: '成功',
     },
     home: {
-      title: '你好，世界！',
-      sendEth: '向自己发送 0.0001 ETH',
-      transactionSuccess: '交易成功',
+      title: 'ETH 定投',
+      subtitle: '每月购买一些以太币',
+      selectAmount: '选择您的月投资金额',
+      startDca: '开始定投 €{amount}/月',
+      walletAddress: '您的钱包地址：',
+      dcaStarted: '定投已开始',
+      dcaStartedDescription: '开始定投计划，每月投资 €{amount}',
+      sendEth: '发送 ETH',
+      transactionSuccess: '交易成功！',
       transactionFailed: '交易失败',
       notConnected: '请连接您的钱包',
-      insufficientBalance: '请使用拥有一些 ETH 的账户连接',
-    },
-    wallet: {
-      title: '欢迎使用消息签名器',
-      description: '使用您的钱包安全地签名和验证以太坊消息',
-      noWalletFound: '未找到以太坊钱包',
-      createWallet: '创建新的以太坊钱包',
-      regenerateWallet: '生成新钱包',
-      flushDb: '清空数据库',
-      yourAddress: '您的以太坊钱包地址',
-      messageToSign: '要签名的消息',
-      enterMessage: '输入您的消息...',
-      signMessage: '签名消息',
-      signature: '以太坊签名',
-      verifySignature: '验证签名',
-      verificationSuccess: '签名有效并匹配当前钱包地址',
-      verificationFailed: '签名与当前钱包地址不匹配',
-    },
-    navigation: {
-      newPage: '新页面',
-      walletGenerator: '钱包生成器',
-      referral: '推荐',
+      insufficientBalance: '余额不足',
     },
     newPage: {
-      title: '欢迎来到新页面',
-      subtitle: '在这个新页面释放你的想象力！',
+      title: '仪表板',
+      subtitle: '监控您的定投策略',
       accountInfo: '账户信息',
       connectedAddress: '已连接地址：',
       balance: '余额：',
-      connectWallet: '连接您的钱包以开始',
-      lastTransaction: '最后交易：',
+      connectWallet: '请连接您的钱包以查看仪表板',
+      lastTransaction: '最后一笔交易：',
       backHome: '返回首页',
+    },
+    wallet: {
+      title: '钱包',
+      description: '连接您的钱包开始投资',
+      noWalletFound: '未找到钱包',
+      createWallet: '创建钱包',
     },
   },
 
@@ -169,49 +138,40 @@ export const translations: Translations = {
     common: {
       login: 'लॉगिन',
       logout: 'लॉगआउट',
-      back: 'पीछे',
+      back: 'वापस',
       loading: 'लोड हो रहा है...',
       error: 'त्रुटि',
-      success: 'सफलता',
+      success: 'सफल',
     },
     home: {
-      title: 'नमस्ते दुनिया!',
-      sendEth: 'स्वयं को 0.0001 ETH भेजें',
-      transactionSuccess: 'लेन-देन सफल',
-      transactionFailed: 'लेन-देन विफल',
+      title: 'ETH DCA',
+      subtitle: 'हर महीने थोड़ा ETH खरीदें',
+      selectAmount: 'अपनी मासिक निवेश राशि चुनें',
+      startDca: '€{amount}/महीने के साथ DCA शुरू करें',
+      walletAddress: 'आपका वॉलेट पता:',
+      dcaStarted: 'DCA शुरू हो गया',
+      dcaStartedDescription: '€{amount} प्रति माह के साथ डॉलर कॉस्ट एवरेजिंग शुरू',
+      sendEth: 'ETH भेजें',
+      transactionSuccess: 'लेन-देन सफल!',
+      transactionFailed: 'लेन-देन असफल',
       notConnected: 'कृपया अपना वॉलेट कनेक्ट करें',
-      insufficientBalance: 'कृपया ऐसे खाते से कनेक्ट करें जिसमें थोड़ा ETH हो',
-    },
-    wallet: {
-      title: 'मैसेज साइनर में आपका स्वागत है',
-      description: 'अपने वॉलेट से ईथेरियम संदेशों को सुरक्षित रूप से साइन और सत्यापित करें',
-      noWalletFound: 'कोई ईथेरियम वॉलेट नहीं मिला',
-      createWallet: 'नया ईथेरियम वॉलेट बनाएं',
-      regenerateWallet: 'नया वॉलेट जनरेट करें',
-      flushDb: 'डीबी खाली करें',
-      yourAddress: 'आपका ईथेरियम वॉलेट पता',
-      messageToSign: 'साइन करने के लिए संदेश',
-      enterMessage: 'अपना संदेश दर्ज करें...',
-      signMessage: 'संदेश साइन करें',
-      signature: 'ईथेरियम सिग्नेचर',
-      verifySignature: 'सिग्नेचर वेरिफाई करें',
-      verificationSuccess: 'सिग्नेचर वैध है और वर्तमान वॉलेट पते से मेल खाता है',
-      verificationFailed: 'सिग्नेचर वर्तमान वॉलेट पते से मेल नहीं खाता',
-    },
-    navigation: {
-      newPage: 'नया पेज',
-      walletGenerator: 'वॉलेट जनरेटर',
-      referral: 'रेफरल',
+      insufficientBalance: 'अपर्याप्त शेष राशि',
     },
     newPage: {
-      title: 'नए पेज पर आपका स्वागत है',
-      subtitle: 'इस नए पेज पर अपनी कल्पना को मुक्त करें!',
+      title: 'डैशबोर्ड',
+      subtitle: 'अपनी DCA रणनीति की निगरानी करें',
       accountInfo: 'खाता जानकारी',
-      connectedAddress: 'कनेक्टेड पता:',
-      balance: 'बैलेंस:',
-      connectWallet: 'शुरू करने के लिए अपना वॉलेट कनेक्ट करें',
-      lastTransaction: 'अंतिम लेनदेन:',
-      backHome: 'होम पर वापस जाएं',
+      connectedAddress: 'जुड़ा हुआ पता:',
+      balance: 'शेष राशि:',
+      connectWallet: 'डैशबोर्ड देखने के लिए कृपया अपना वॉलेट कनेक्ट करें',
+      lastTransaction: 'अंतिम लेन-देन:',
+      backHome: 'होम पेज पर वापस',
+    },
+    wallet: {
+      title: 'वॉलेट',
+      description: 'निवेश शुरू करने के लिए अपना वॉलेट कनेक्ट करें',
+      noWalletFound: 'कोई वॉलेट नहीं मिला',
+      createWallet: 'वॉलेट बनाएं',
     },
   },
 
@@ -220,100 +180,82 @@ export const translations: Translations = {
     common: {
       login: 'Iniciar sesión',
       logout: 'Cerrar sesión',
-      back: 'Atrás',
+      back: 'Volver',
       loading: 'Cargando...',
       error: 'Error',
       success: 'Éxito',
     },
     home: {
-      title: '¡Hola mundo!',
-      sendEth: 'Enviar 0.0001 ETH a sí mismo',
-      transactionSuccess: 'Transacción exitosa',
+      title: 'ETH DCA',
+      subtitle: 'Compra un poco de ETH cada mes',
+      selectAmount: 'Selecciona tu cantidad de inversión mensual',
+      startDca: 'Iniciar DCA con €{amount}/mes',
+      walletAddress: 'Tu dirección de cartera:',
+      dcaStarted: 'DCA Iniciado',
+      dcaStartedDescription: 'Iniciando Promedio de Costo en Dólares con €{amount} por mes',
+      sendEth: 'Enviar ETH',
+      transactionSuccess: '¡Transacción exitosa!',
       transactionFailed: 'Transacción fallida',
-      notConnected: 'Por favor conecte su billetera',
-      insufficientBalance: 'Por favor conecte con una cuenta que tenga un poco de ETH',
-    },
-    wallet: {
-      title: 'Bienvenido al Firmador de Mensajes',
-      description: 'Firme y verifique mensajes de Ethereum de forma segura con su billetera',
-      noWalletFound: 'No se encontró ninguna billetera Ethereum',
-      createWallet: 'Crear nueva billetera Ethereum',
-      regenerateWallet: 'Generar nueva billetera',
-      flushDb: 'Vaciar BD',
-      yourAddress: 'Su dirección de billetera Ethereum',
-      messageToSign: 'Mensaje para firmar',
-      enterMessage: 'Ingrese su mensaje...',
-      signMessage: 'Firmar mensaje',
-      signature: 'Firma Ethereum',
-      verifySignature: 'Verificar firma',
-      verificationSuccess: 'La firma es válida y coincide con la dirección de la billetera actual',
-      verificationFailed: 'La firma no coincide con la dirección de la billetera actual',
-    },
-    navigation: {
-      newPage: 'Nueva página',
-      walletGenerator: 'Generador de billetera',
-      referral: 'Referido',
+      notConnected: 'Por favor conecta tu cartera',
+      insufficientBalance: 'Saldo insuficiente',
     },
     newPage: {
-      title: 'Bienvenido a Nueva Página',
-      subtitle: '¡Libera tu imaginación en esta nueva página!',
+      title: 'Tablero',
+      subtitle: 'Monitorea tu estrategia DCA',
       accountInfo: 'Información de la cuenta',
       connectedAddress: 'Dirección conectada:',
       balance: 'Saldo:',
-      connectWallet: 'Conecta tu billetera para comenzar',
+      connectWallet: 'Por favor conecta tu cartera para ver tu tablero',
       lastTransaction: 'Última transacción:',
-      backHome: 'Volver a Inicio',
+      backHome: 'Volver al inicio',
+    },
+    wallet: {
+      title: 'Cartera',
+      description: 'Conecta tu cartera para empezar a invertir',
+      noWalletFound: 'No se encontró cartera',
+      createWallet: 'Crear cartera',
     },
   },
 
   // French
   fr: {
     common: {
-      login: 'Connexion',
-      logout: 'Déconnexion',
+      login: 'Se connecter',
+      logout: 'Se déconnecter',
       back: 'Retour',
       loading: 'Chargement...',
       error: 'Erreur',
       success: 'Succès',
     },
     home: {
-      title: 'Salut tout le monde !',
-      sendEth: 'Envoyer 0.0001 ETH à soi-même',
-      transactionSuccess: 'Transaction réussie',
-      transactionFailed: 'Échec de la transaction',
-      notConnected: 'Veuillez connecter votre wallet',
-      insufficientBalance: "Veuillez vous connecter avec un compte qui possède un peu d'ETH",
-    },
-    wallet: {
-      title: 'Bienvenue sur le Signataire de Messages',
-      description: 'Signez et vérifiez en toute sécurité des messages Ethereum avec votre wallet',
-      noWalletFound: 'Aucun wallet',
-      createWallet: 'Créer un Nouveau wallet Ethereum',
-      regenerateWallet: 'Générer un nouveau wallet',
-      flushDb: 'Vider la BD',
-      yourAddress: 'Votre adresse Ethereum',
-      messageToSign: 'Message à signer',
-      enterMessage: 'Entrez votre message...',
-      signMessage: 'Signer le mlessage',
-      signature: 'Signature',
-      verifySignature: 'Vérifier la signature',
-      verificationSuccess: 'La signature est valide et correspond à ce wallet',
-      verificationFailed: 'La signature ne correspond pas à ce wallet',
-    },
-    navigation: {
-      newPage: 'Nouvelle page',
-      walletGenerator: 'Générateur de wallet',
-      referral: 'Parrainage',
+      title: 'ETH DCA',
+      subtitle: "Achetez un peu d'ETH chaque mois",
+      selectAmount: "Sélectionnez votre montant d'investissement mensuel",
+      startDca: 'Commencer DCA avec €{amount}/mois',
+      walletAddress: 'Votre adresse de portefeuille :',
+      dcaStarted: 'DCA Commencé',
+      dcaStartedDescription: 'Démarrage de la moyenne des coûts en dollars avec €{amount} par mois',
+      sendEth: 'Envoyer ETH',
+      transactionSuccess: 'Transaction réussie !',
+      transactionFailed: 'Transaction échouée',
+      notConnected: 'Veuillez connecter votre portefeuille',
+      insufficientBalance: 'Solde insuffisant',
     },
     newPage: {
-      title: 'Bienvenue sur la nouvelle page',
-      subtitle: 'Libérez votre imagination sur cette nouvelle page !',
+      title: 'Tableau de bord',
+      subtitle: 'Surveillez votre stratégie DCA',
       accountInfo: 'Informations du compte',
       connectedAddress: 'Adresse connectée :',
       balance: 'Solde :',
-      connectWallet: 'Connectez votre wallet pour commencer',
+      connectWallet: 'Veuillez connecter votre portefeuille pour voir votre tableau de bord',
       lastTransaction: 'Dernière transaction :',
       backHome: "Retour à l'accueil",
+    },
+    wallet: {
+      title: 'Portefeuille',
+      description: 'Connectez votre portefeuille pour commencer à investir',
+      noWalletFound: 'Aucun portefeuille trouvé',
+      createWallet: 'Créer un portefeuille',
     },
   },
 
@@ -323,151 +265,123 @@ export const translations: Translations = {
       login: 'تسجيل الدخول',
       logout: 'تسجيل الخروج',
       back: 'رجوع',
-      loading: 'جاري التحميل...',
+      loading: 'جارٍ التحميل...',
       error: 'خطأ',
-      success: 'نجاح',
+      success: 'نجح',
     },
     home: {
-      title: 'مرحبا بالعالم!',
-      sendEth: 'إرسال 0.0001 ETH لنفسك',
-      transactionSuccess: 'تمت المعاملة بنجاح',
+      title: 'ETH DCA',
+      subtitle: 'اشترِ القليل من ETH كل شهر',
+      selectAmount: 'اختر مبلغ استثمارك الشهري',
+      startDca: 'ابدأ DCA بـ €{amount}/شهر',
+      walletAddress: 'عنوان محفظتك:',
+      dcaStarted: 'بدأ DCA',
+      dcaStartedDescription: 'بدء متوسط التكلفة بالدولار مع €{amount} شهرياً',
+      sendEth: 'إرسال ETH',
+      transactionSuccess: 'نجحت المعاملة!',
       transactionFailed: 'فشلت المعاملة',
-      notConnected: 'يرجى توصيل محفظتك',
-      insufficientBalance: 'يرجى الاتصال بحساب يحتوي على قليل من ETH',
-    },
-    wallet: {
-      title: 'مرحبًا بك في موقع توقيع الرسائل',
-      description: 'قم بتوقيع رسائل إيثريوم والتحقق منها بشكل آمن باستخدام محفظتك',
-      noWalletFound: 'لم يتم العثور على محفظة إيثريوم',
-      createWallet: 'إنشاء محفظة إيثريوم جديدة',
-      regenerateWallet: 'إنشاء محفظة جديدة',
-      flushDb: 'مسح قاعدة البيانات',
-      yourAddress: 'عنوان محفظة الإيثريوم الخاصة بك',
-      messageToSign: 'رسالة للتوقيع',
-      enterMessage: 'أدخل رسالتك...',
-      signMessage: 'توقيع الرسالة',
-      signature: 'توقيع الإيثريوم',
-      verifySignature: 'التحقق من التوقيع',
-      verificationSuccess: 'التوقيع صالح ويتطابق مع عنوان المحفظة الحالي',
-      verificationFailed: 'التوقيع لا يتطابق مع عنوان المحفظة الحالي',
-    },
-    navigation: {
-      newPage: 'صفحة جديدة',
-      walletGenerator: 'منشئ المحفظة',
-      referral: 'إحالة',
+      notConnected: 'يرجى ربط محفظتك',
+      insufficientBalance: 'رصيد غير كافٍ',
     },
     newPage: {
-      title: 'مرحبًا بك في الصفحة الجديدة',
-      subtitle: 'أطلق العنان لخيالك في هذه الصفحة الجديدة!',
+      title: 'لوحة القيادة',
+      subtitle: 'راقب استراتيجية DCA الخاصة بك',
       accountInfo: 'معلومات الحساب',
       connectedAddress: 'العنوان المتصل:',
       balance: 'الرصيد:',
-      connectWallet: 'قم بتوصيل محفظتك للبدء',
+      connectWallet: 'يرجى ربط محفظتك لعرض لوحة القيادة',
       lastTransaction: 'آخر معاملة:',
-      backHome: 'العودة إلى الصفحة الرئيسية',
+      backHome: 'العودة للرئيسية',
+    },
+    wallet: {
+      title: 'المحفظة',
+      description: 'اربط محفظتك لبدء الاستثمار',
+      noWalletFound: 'لم يتم العثور على محفظة',
+      createWallet: 'إنشاء محفظة',
     },
   },
 
   // Bengali
   bn: {
     common: {
-      login: 'লগ ইন',
-      logout: 'লগ আউট',
-      back: 'পিছনে',
+      login: 'লগইন',
+      logout: 'লগআউট',
+      back: 'ফিরে যান',
       loading: 'লোড হচ্ছে...',
       error: 'ত্রুটি',
       success: 'সফল',
     },
     home: {
-      title: 'ওহে বিশ্ব!',
-      sendEth: 'নিজেকে 0.0001 ETH পাঠান',
-      transactionSuccess: 'লেনদেন সফল',
+      title: 'ETH DCA',
+      subtitle: 'প্রতি মাসে কিছু ETH কিনুন',
+      selectAmount: 'আপনার মাসিক বিনিয়োগের পরিমাণ নির্বাচন করুন',
+      startDca: '€{amount}/মাস দিয়ে DCA শুরু করুন',
+      walletAddress: 'আপনার ওয়ালেট ঠিকানা:',
+      dcaStarted: 'DCA শুরু হয়েছে',
+      dcaStartedDescription: 'মাসিক €{amount} দিয়ে ডলার কস্ট অ্যাভারেজিং শুরু',
+      sendEth: 'ETH পাঠান',
+      transactionSuccess: 'লেনদেন সফল!',
       transactionFailed: 'লেনদেন ব্যর্থ',
-      notConnected: 'অনুগ্রহ করে আপনার ওয়ালেট সংযুক্ত করুন',
-      insufficientBalance: 'অনুগ্রহ করে এমন একটি অ্যাকাউন্টের সাথে সংযোগ করুন যার কিছু ETH আছে',
-    },
-    wallet: {
-      title: 'মেসেজ সাইনারে স্বাগতম',
-      description: 'আপনার ওয়ালেট দিয়ে নিরাপদে ইথেরিয়াম বার্তা স্বাক্ষর এবং যাচাই করুন',
-      noWalletFound: 'কোনও ইথেরিয়াম ওয়ালেট পাওয়া যায়নি',
-      createWallet: 'নতুন ইথেরিয়াম ওয়ালেট তৈরি করুন',
-      regenerateWallet: 'নতুন ওয়ালেট তৈরি করুন',
-      flushDb: 'ডাটাবেস খালি করুন',
-      yourAddress: 'আপনার ইথেরিয়াম ওয়ালেট ঠিকানা',
-      messageToSign: 'স্বাক্ষর করার বার্তা',
-      enterMessage: 'আপনার বার্তা লিখুন...',
-      signMessage: 'বার্তা স্বাক্ষর করুন',
-      signature: 'ইথেরিয়াম স্বাক্ষর',
-      verifySignature: 'স্বাক্ষর যাচাই করুন',
-      verificationSuccess: 'স্বাক্ষর বৈধ এবং বর্তমান ওয়ালেট ঠিকানার সাথে মেলে',
-      verificationFailed: 'স্বাক্ষর বর্তমান ওয়ালেট ঠিকানার সাথে মেলে না',
-    },
-    navigation: {
-      newPage: 'নতুন পৃষ্ঠা',
-      walletGenerator: 'ওয়ালেট জেনারেটর',
-      referral: 'রেফারেল',
+      notConnected: 'দয়া করে আপনার ওয়ালেট সংযুক্ত করুন',
+      insufficientBalance: 'অপর্যাপ্ত ব্যালেন্স',
     },
     newPage: {
-      title: 'নতুন পৃষ্ঠায় স্বাগতম',
-      subtitle: 'এই নতুন পৃষ্ঠায় আপনার কল্পনাকে মুক্ত করুন!',
-      accountInfo: 'অ্যাকাউন্ট তথ্য',
+      title: 'ড্যাশবোর্ড',
+      subtitle: 'আপনার DCA কৌশল নিরীক্ষণ করুন',
+      accountInfo: 'অ্যাকাউন্টের তথ্য',
       connectedAddress: 'সংযুক্ত ঠিকানা:',
       balance: 'ব্যালেন্স:',
-      connectWallet: 'শুরু করতে আপনার ওয়ালেট সংযোগ করুন',
-      lastTransaction: 'সর্বশেষ লেনদেন:',
+      connectWallet: 'ড্যাশবোর্ড দেখতে দয়া করে আপনার ওয়ালেট সংযুক্ত করুন',
+      lastTransaction: 'শেষ লেনদেন:',
       backHome: 'হোমে ফিরে যান',
+    },
+    wallet: {
+      title: 'ওয়ালেট',
+      description: 'বিনিয়োগ শুরু করতে আপনার ওয়ালেট সংযুক্ত করুন',
+      noWalletFound: 'কোন ওয়ালেট পাওয়া যায়নি',
+      createWallet: 'ওয়ালেট তৈরি করুন',
     },
   },
 
   // Russian
   ru: {
     common: {
-      login: 'Вход',
-      logout: 'Выход',
+      login: 'Войти',
+      logout: 'Выйти',
       back: 'Назад',
       loading: 'Загрузка...',
       error: 'Ошибка',
       success: 'Успех',
     },
     home: {
-      title: 'Привет, мир!',
-      sendEth: 'Отправить 0.0001 ETH себе',
-      transactionSuccess: 'Транзакция успешна',
+      title: 'ETH DCA',
+      subtitle: 'Покупайте немного ETH каждый месяц',
+      selectAmount: 'Выберите сумму ежемесячных инвестиций',
+      startDca: 'Начать DCA с €{amount}/месяц',
+      walletAddress: 'Адрес вашего кошелька:',
+      dcaStarted: 'DCA Запущен',
+      dcaStartedDescription: 'Запуск усреднения долларовой стоимости с €{amount} в месяц',
+      sendEth: 'Отправить ETH',
+      transactionSuccess: 'Транзакция успешна!',
       transactionFailed: 'Транзакция не удалась',
       notConnected: 'Пожалуйста, подключите ваш кошелек',
-      insufficientBalance: 'Пожалуйста, подключитесь с аккаунтом, на котором есть немного ETH',
-    },
-    wallet: {
-      title: 'Добро пожаловать в Подписчик сообщений',
-      description:
-        'Безопасно подписывайте и проверяйте сообщения Ethereum с помощью вашего кошелька',
-      noWalletFound: 'Кошелек Ethereum не найден',
-      createWallet: 'Создать новый кошелек Ethereum',
-      regenerateWallet: 'Сгенерировать новый кошелек',
-      flushDb: 'Очистить БД',
-      yourAddress: 'Адрес вашего кошелька Ethereum',
-      messageToSign: 'Сообщение для подписи',
-      enterMessage: 'Введите ваше сообщение...',
-      signMessage: 'Подписать сообщение',
-      signature: 'Подпись Ethereum',
-      verifySignature: 'Проверить подпись',
-      verificationSuccess: 'Подпись действительна и соответствует текущему адресу кошелька',
-      verificationFailed: 'Подпись не соответствует текущему адресу кошелька',
-    },
-    navigation: {
-      newPage: 'Новая страница',
-      walletGenerator: 'Генератор кошельков',
-      referral: 'Рекомендация',
+      insufficientBalance: 'Недостаточный баланс',
     },
     newPage: {
-      title: 'Добро пожаловать на новую страницу',
-      subtitle: 'Раскройте свое воображение на этой новой странице!',
+      title: 'Панель управления',
+      subtitle: 'Отслеживайте свою стратегию DCA',
       accountInfo: 'Информация об аккаунте',
       connectedAddress: 'Подключенный адрес:',
       balance: 'Баланс:',
-      connectWallet: 'Подключите ваш кошелек, чтобы начать',
+      connectWallet: 'Пожалуйста, подключите ваш кошелек для просмотра панели управления',
       lastTransaction: 'Последняя транзакция:',
       backHome: 'Вернуться на главную',
+    },
+    wallet: {
+      title: 'Кошелек',
+      description: 'Подключите ваш кошелек для начала инвестирования',
+      noWalletFound: 'Кошелек не найден',
+      createWallet: 'Создать кошелек',
     },
   },
 
@@ -482,43 +396,34 @@ export const translations: Translations = {
       success: 'Sucesso',
     },
     home: {
-      title: 'Olá, mundo!',
-      sendEth: 'Enviar 0.0001 ETH para si mesmo',
-      transactionSuccess: 'Transação bem-sucedida',
-      transactionFailed: 'Falha na transação',
-      notConnected: 'Por favor, conecte sua carteira',
-      insufficientBalance: 'Por favor, conecte-se com uma conta que tenha um pouco de ETH',
-    },
-    wallet: {
-      title: 'Bem-vindo ao Assinador de Mensagens',
-      description: 'Assine e verifique mensagens Ethereum com segurança usando sua carteira',
-      noWalletFound: 'Nenhuma carteira Ethereum encontrada',
-      createWallet: 'Criar nova carteira Ethereum',
-      regenerateWallet: 'Gerar nova carteira',
-      flushDb: 'Limpar BD',
-      yourAddress: 'Seu endereço de carteira Ethereum',
-      messageToSign: 'Mensagem para assinar',
-      enterMessage: 'Digite sua mensagem...',
-      signMessage: 'Assinar mensagem',
-      signature: 'Assinatura Ethereum',
-      verifySignature: 'Verificar assinatura',
-      verificationSuccess: 'A assinatura é válida e corresponde ao endereço da carteira atual',
-      verificationFailed: 'A assinatura não corresponde ao endereço da carteira atual',
-    },
-    navigation: {
-      newPage: 'Nova página',
-      walletGenerator: 'Gerador de carteira',
-      referral: 'Indicação',
+      title: 'ETH DCA',
+      subtitle: 'Compre um pouco de ETH todo mês',
+      selectAmount: 'Selecione seu valor de investimento mensal',
+      startDca: 'Iniciar DCA com €{amount}/mês',
+      walletAddress: 'Seu endereço de carteira:',
+      dcaStarted: 'DCA Iniciado',
+      dcaStartedDescription: 'Iniciando Média de Custo em Dólares com €{amount} por mês',
+      sendEth: 'Enviar ETH',
+      transactionSuccess: 'Transação bem-sucedida!',
+      transactionFailed: 'Transação falhou',
+      notConnected: 'Por favor conecte sua carteira',
+      insufficientBalance: 'Saldo insuficiente',
     },
     newPage: {
-      title: 'Bem-vindo à Nova Página',
-      subtitle: 'Libere sua imaginação nesta nova página!',
-      accountInfo: 'Informações da Conta',
+      title: 'Painel',
+      subtitle: 'Monitore sua estratégia DCA',
+      accountInfo: 'Informações da conta',
       connectedAddress: 'Endereço conectado:',
       balance: 'Saldo:',
-      connectWallet: 'Conecte sua carteira para começar',
+      connectWallet: 'Por favor conecte sua carteira para ver seu painel',
       lastTransaction: 'Última transação:',
-      backHome: 'Voltar para a Página Inicial',
+      backHome: 'Voltar ao início',
+    },
+    wallet: {
+      title: 'Carteira',
+      description: 'Conecte sua carteira para começar a investir',
+      noWalletFound: 'Nenhuma carteira encontrada',
+      createWallet: 'Criar carteira',
     },
   },
 
@@ -533,61 +438,58 @@ export const translations: Translations = {
       success: 'کامیابی',
     },
     home: {
-      title: 'ہیلو دنیا!',
-      sendEth: 'خود کو 0.0001 ETH بھیجیں',
-      transactionSuccess: 'لین دین کامیاب',
+      title: 'ETH DCA',
+      subtitle: 'ہر مہینے تھوڑا سا ETH خریدیں',
+      selectAmount: 'اپنی ماہانہ سرمایہ کاری کی رقم منتخب کریں',
+      startDca: '€{amount}/مہینہ کے ساتھ DCA شروع کریں',
+      walletAddress: 'آپ کا والیٹ ایڈریس:',
+      dcaStarted: 'DCA شروع ہو گیا',
+      dcaStartedDescription: 'ماہانہ €{amount} کے ساتھ ڈالر کاسٹ ایوریجنگ شروع کرنا',
+      sendEth: 'ETH بھیجیں',
+      transactionSuccess: 'لین دین کامیاب!',
       transactionFailed: 'لین دین ناکام',
-      notConnected: 'براہ کرم اپنا والیٹ منسلک کریں',
-      insufficientBalance: 'براہ کرم ایسے اکاؤنٹ سے منسلک ہوں جس میں تھوڑا سا ETH ہو',
-    },
-    wallet: {
-      title: 'میسج سائنر میں خوش آمدید',
-      description: 'اپنے والیٹ سے محفوظ طریقے سے ایتھیریم پیغامات پر دستخط کریں اور تصدیق کریں',
-      noWalletFound: 'کوئی ایتھیریم والیٹ نہیں ملا',
-      createWallet: 'نیا ایتھیریم والیٹ بنائیں',
-      regenerateWallet: 'نیا والیٹ بنائیں',
-      flushDb: 'ڈیٹابیس خالی کریں',
-      yourAddress: 'آپ کا ایتھیریم والیٹ ایڈریس',
-      messageToSign: 'دستخط کرنے کے لیے پیغام',
-      enterMessage: 'اپنا پیغام درج کریں...',
-      signMessage: 'پیغام پر دستخط کریں',
-      signature: 'ایتھیریم دستخط',
-      verifySignature: 'دستخط کی تصدیق کریں',
-      verificationSuccess: 'دستخط درست ہے اور موجودہ والیٹ ایڈریس سے مطابقت رکھتا ہے',
-      verificationFailed: 'دستخط موجودہ والیٹ ایڈریس سے مطابقت نہیں رکھتا',
-    },
-    navigation: {
-      newPage: 'نیا صفحہ',
-      walletGenerator: 'والیٹ جنریٹر',
-      referral: 'حوالہ',
+      notConnected: 'براہ کرم اپنا والیٹ جوڑیں',
+      insufficientBalance: 'ناکافی بیلنس',
     },
     newPage: {
-      title: 'نئے صفحے میں خوش آمدید',
-      subtitle: 'اس نئے صفحے پر اپنے تخیل کو آزاد کریں!',
+      title: 'ڈیش بورڈ',
+      subtitle: 'اپنی DCA حکمت عملی کی نگرانی کریں',
       accountInfo: 'اکاؤنٹ کی معلومات',
-      connectedAddress: 'منسلک ایڈریس:',
+      connectedAddress: 'جڑا ہوا پتہ:',
       balance: 'بیلنس:',
-      connectWallet: 'شروع کرنے کے لیے اپنا والیٹ منسلک کریں',
+      connectWallet: 'ڈیش بورڈ دیکھنے کے لیے براہ کرم اپنا والیٹ جوڑیں',
       lastTransaction: 'آخری لین دین:',
-      backHome: 'ہوم پیج پر واپس جائیں',
+      backHome: 'ہوم پر واپس',
+    },
+    wallet: {
+      title: 'والیٹ',
+      description: 'سرمایہ کاری شروع کرنے کے لیے اپنا والیٹ جوڑیں',
+      noWalletFound: 'کوئی والیٹ نہیں ملا',
+      createWallet: 'والیٹ بنائیں',
     },
   },
 }
 
 /**
- * Get translations for the current language
- * @param language Current language code
+ * Get translations for a specific language
+ * @param language Language code
  * @returns Translation object for the specified language
  */
-export function getTranslations(language: Language) {
-  return translations[language]
+export function getTranslations(language: Language): TranslationKeys {
+  return translations[language] || translations.en
 }
 
 /**
- * Hook to use translations in components
- * @param language Current language code
- * @returns Translation object for the specified language
+ * Utility function to replace placeholders in translation strings
+ * @param template Translation string with placeholders like {amount}
+ * @param values Object with values to replace placeholders
+ * @returns String with placeholders replaced
  */
-export function useTranslations(language: Language) {
-  return translations[language]
+export function formatTranslation(
+  template: string,
+  values: Record<string, string | number>
+): string {
+  return template.replace(/\{(\w+)\}/g, (match, key) => {
+    return values[key]?.toString() || match
+  })
 }
