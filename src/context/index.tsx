@@ -4,20 +4,6 @@ import { createAppKit } from '@reown/appkit/react'
 import { EthersAdapter } from '@reown/appkit-adapter-ethers'
 import {
   optimism,
-  zksync,
-  base,
-  arbitrum,
-  gnosis,
-  polygon,
-  polygonZkEvm,
-  mantle,
-  celo,
-  avalanche,
-  degen,
-  sepolia,
-  optimismSepolia,
-  arbitrumSepolia,
-  baseSepolia,
 } from '@reown/appkit/networks'
 import { type ReactNode, memo } from 'react'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
@@ -34,22 +20,8 @@ createAppKit({
   projectId,
   networks: [
     optimism,
-    zksync,
-    base,
-    arbitrum,
-    gnosis,
-    polygon,
-    polygonZkEvm,
-    mantle,
-    celo,
-    avalanche,
-    degen,
-    sepolia,
-    optimismSepolia,
-    arbitrumSepolia,
-    baseSepolia,
   ],
-  defaultNetwork: sepolia,
+  defaultNetwork: optimism,
   metadata: {
     name: 'ETH DCA',
     description: 'Buy a handful of ETH each month',
