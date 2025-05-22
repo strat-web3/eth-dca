@@ -2,9 +2,7 @@
 
 import { createAppKit } from '@reown/appkit/react'
 import { EthersAdapter } from '@reown/appkit-adapter-ethers'
-import {
-  optimism,
-} from '@reown/appkit/networks'
+import { optimism } from '@reown/appkit/networks'
 import { type ReactNode, memo } from 'react'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
@@ -18,9 +16,7 @@ const ethersAdapter = new EthersAdapter()
 createAppKit({
   adapters: [ethersAdapter],
   projectId,
-  networks: [
-    optimism,
-  ],
+  networks: [optimism],
   defaultNetwork: optimism,
   metadata: {
     name: 'ETH DCA',
